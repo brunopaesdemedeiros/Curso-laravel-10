@@ -18,7 +18,6 @@
             <li>Status: <x-status-support :status="$support->status"/></li>
             <li>Descrição: {{ $support->body }}</li>
         </ul>
-
         <!-- Item Container -->
         <div class="flex flex-col gap-3 text-white">
             <div class="flex flex-col gap-4 dark:bg-gray-900 rounded p-4">
@@ -63,16 +62,19 @@
             </div>
 
             <div class="py-4">
-                <textarea
-                    rows="2"
-                    name="message"
-                    placeholder="Sua resposta"
-                    class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"></textarea>
-                    <button type="submit" class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none">
-                    Enviar
-                  </button>
+                <form action="{{ route('replies.store', $support->id) }}" method="post">
+                    @csrf
+                    <input type="hidden" name="support_id" value="{{$support->id}}">
+                    <textarea
+                        rows="2"
+                        name="content"
+                        placeholder="Sua resposta"
+                        class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"></textarea>
+                        <button type="submit" class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none">
+                            Enviar
+                        </button>
+                </form>
             </div>
-
 
         </div>
     </div>
