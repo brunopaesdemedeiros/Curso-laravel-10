@@ -19,7 +19,9 @@ class ReplySupportRepository implements ReplyRepositoryInterface
     }
     public function getAllBySupportId(string $supportId): array
     {
-        $replies = $this->model->where('support_id', $supportId)->get();
+        $replies = $this->model
+                    ->with(['user', 'support'])
+                    ->where('support_id', $supportId)->get();
 
         return $replies->toArray();
     }
@@ -32,5 +34,14 @@ class ReplySupportRepository implements ReplyRepositoryInterface
         ]);
 
         return (object) $reply->toArray();
+    }
+
+    public function delete(string $id): bool
+    {
+        if (!$reply = $this->model->find($id)) {
+            return false;
+        }
+
+        return (bool) $reply->delete();
     }
 }
