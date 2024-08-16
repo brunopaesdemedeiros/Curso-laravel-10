@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\DTO\Replies\CreateReplyDTO;
 use App\Repositories\Eloquent\ReplySupportRepository;
+use Illuminate\Support\Facades\Gate;
 use stdClass;
 
 class ReplySupportService
